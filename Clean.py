@@ -11,5 +11,6 @@ categorical_variables = train.dtypes.loc[train.dtypes == 'object'].index
 
 print(train['DRG Definition'].value_counts().to_frame().to_csv('./output.csv'))
 
-# with open("forRyan.txt",'w') as fw:
-#     fw.write(str((train['DRG Definition'].value_counts())))
+with open("output.csv") as fh:
+    for line in fh:
+        pass 
