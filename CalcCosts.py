@@ -29,9 +29,11 @@ class Calculator(object):
             conditions.append(key)
 
         # print len(conditions)
-        plt.title("Cost of "+ str(diagnosisCategories[int(self.diagnosis)]+ " in the US."))
+        plt.figure(1,figsize=(20,20))
+
+        plt.title("Cost of "+ str(self.diagnosisCategories[int(self.diagnosis)]+ " in the US."))
         # print len(state)
-        plt.bar(conditions, (self.statesCost))
+        plt.bar(conditions, (self.statesCost), width=.4)
         plt.show()
 
         # print count
@@ -74,7 +76,7 @@ class Calculator(object):
         # print (minCost)
         # print (len(statesCost))
         # plot_averages(diagnosis)
-        return self.meanNationalData, self.minStateCost, self.maxStateCost, self.cheapestState
+        return [self.meanNationalData, self.minStateCost, self.maxStateCost, self.cheapestState]
 
 
 def main():
@@ -85,10 +87,11 @@ def main():
     df.to_csv("FinalDataSet.csv")
     calc = Calculator(df)
     results = calc.model()
-    for elem in results:
-        elem = elem.round(2)
-    print "National cost for getting " + str(self.diagnosisCategories[self.calc.diagnosis]) + "in the US: " + str(results[0]))
-    print "Cheapest cost for getting " + str(self.diagnosisCategories[self.calc.diagnosis]) + "in the US: " + str(results[1])
+    for a in range(3):
+        results[a] = float(results[a])
+        results[a] = np.round(results[a], decimals=2)
+    print "National cost for getting " + str(calc.diagnosisCategories[int(calc.diagnosis)]) + "in the US: " + str(results[0])
+    print "Cheapest cost for getting " + str(calc.diagnosisCategories[int(calc.diagnosis)]) + "in the US: " + str(results[1])
     print "This is in " + str(results[3])
     print "Total Disparity for this treatment: " + str(results[1]) + "-" + str(results[2])
     print "now plotting total average for that treatment in all 50 states"
