@@ -24,7 +24,7 @@ class Calculator(object):
 
     def plot_averages(self):
 
-
+#e
         conditions = [] #a list of the 50 US states plus DC
         for key in (self.stateDict.keys()):
             conditions.append(key)
