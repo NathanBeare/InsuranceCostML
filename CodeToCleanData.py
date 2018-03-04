@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 
 def readFile(fileName):
@@ -145,11 +145,85 @@ def outFinalDataFrame(bigCategories, cleanData):
         total_data=pd.DataFrame(total_data)
         return total_data
 
+def plot_averages(state, national, diag):
+    stateDict = {'AL': 0, 'AK': 1, 'AZ': 2, 'AR': 3, 'CA': 4, 'CO': 5, 'CT': 6, 'DE': 7,
+                 'FL': 8, 'GA': 9, 'HI': 10, 'ID': 11, 'IL': 12, 'IN': 13, 'IA': 14,
+                 'KS': 15, 'KY': 16, 'LA': 17, 'ME': 18, 'MD': 19, 'MA': 20, 'MI': 21,
+                 'MN': 22, 'MS': 23, 'MO': 24, 'MT': 25, 'NE': 26, 'NV': 27, 'NH': 28,
+                 'NJ': 29, 'NM': 30, 'NY': 31, 'NC': 32, 'ND': 33, 'OH': 34, 'OK': 35,
+                 'OR': 36, 'PA': 37, 'RI': 38, 'SC': 39, 'SD': 40, 'TN': 41, 'TX': 42,
+                 'UT': 43, 'VT': 44, 'VA': 45, 'WA': 46, 'WV': 47, 'WI': 48, 'WY': 49,
+                 'DC': 50}
+    diagnosis = ('Pulmonary Treatments', 'Cardiovascular Treatments', 'Neurological Treatments', 'GI Treatments',
+                 'Renal Treatments', 'Trauma Treatments', 'Orthopedic Treatment', 'Other')
+
+    conditions = list(stateDict.keys())
+    # print(conditions)
+    plt.title("Cost of "+ str(diagnosis[diag]+ " in the US."))
+    plt.bar(conditions, state)
+    plt.show()
 
     # print count
+def model (diagnosis, df):
+    stateDict = {'AL': 0, 'AK': 1, 'AZ': 2, 'AR': 3, 'CA': 4, 'CO': 5, 'CT': 6, 'DE': 7,
+     'FL': 8, 'GA': 9, 'HI': 10, 'ID': 11, 'IL': 12, 'IN': 13, 'IA': 14,
+     'KS': 15, 'KY': 16, 'LA': 17, 'ME': 18, 'MD': 19, 'MA': 20, 'MI': 21,
+     'MN': 22, 'MS': 23, 'MO': 24, 'MT': 25, 'NE': 26, 'NV': 27, 'NH': 28,
+     'NJ': 29, 'NM': 30, 'NY': 31, 'NC': 32, 'ND': 33, 'OH': 34, 'OK': 35,
+     'OR': 36, 'PA': 37, 'RI': 38, 'SC': 39, 'SD': 40, 'TN': 41, 'TX': 42,
+     'UT': 43, 'VT': 44, 'VA': 45, 'WA': 46, 'WV': 47, 'WI': 48, 'WY': 49,
+     'DC': 50}
+    statesCost=[]
+    nationalData = []
+
+    for y in range(len(df)):
+        diag = int(df[y][0])
+        if diag == int(diagnosis):
+            nationalData.append((df[y][4]).round(3))
+    meanNationalData = np.mean(nationalData)
+    print("NATIONAL AVG COST: " +str(meanNationalData))
+
+    for x in range (50):
+        stateData = []
+        for y in range(len(df)):
+            diag= int(df[y][0])
+            state = int(df[y][1])
+            # print (a)
+            # print (type(a))
+            # print (type((df[y])[0]))
+            # print (type(diagnosis))
+
+
+
+            if diag == int(diagnosis) and state==int(x):
+                # print (df[y][4])
+                # print ("YAY")
+                stateData.append(df[y][4])
+        stateData = (np.array(stateData))
+        statesCost.append(np.mean(stateData).round(3))
+        minCost = min(statesCost)
+    # print (np.mean(statesCost))
+
+    smallestState = ''
+    for x in range(len(statesCost)):
+        if statesCost[x] == min(statesCost):
+            for key in stateDict.keys():
+                if stateDict[key] == x:
+                    smallestState = key
+    print ("CHEAPEST STATE TO GET A other TREATMENT = " + (smallestState))
+    print (minCost)
+    # print (len(statesCost))
+    plot_averages(statesCost, meanNationalData, diagnosis)
+    pass
 
 
 # readFile("inpatientCharges.csv")
 bigCategories = biggerCategories("CLEANDATA.csv")
-df = outFinalDataFrame(bigCategories, "CLEANDATA.csv")
-df.to_csv("FinalDataSet.csv")
+df = np.array(outFinalDataFrame(bigCategories, "CLEANDATA.csv"))
+# df.to_csv("FinalDataSet.csv")
+
+# diagnosis = input("ENTER A DIAGNOSIS:") #num between 0 and 7
+model(6, df)
+
+# print (df)
+
