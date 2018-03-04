@@ -2,6 +2,7 @@ from DataCleaning import inputData
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+from pylab import figure
 
 class Calculator(object):
     def __init__(self, data):
@@ -34,7 +35,7 @@ class Calculator(object):
         plt.title("Cost of "+ str(self.diagnosisCategories[int(self.diagnosis)]+ " in the US."))
         # print len(state)
         plt.bar(conditions, (self.statesCost), width=.4)
-        plt.show()
+        plt.savefig("barChartResults.png")
 
         # print count
     def model (self):
@@ -96,7 +97,10 @@ def main():
     # print "This is in " + str(results[3])
     # print "Total Disparity for this treatment: " + str(results[1]) + "-" + str(results[2])
     # print "now plotting total average for that treatment in all 50 states"
-    return results
+    # return results
+    with open("calc_outputs.txt", "w") as fw:
+        for result in results:
+            fw.write(str(result)+",")
     calc.plot_averages()
 
     # print data.model(7)
