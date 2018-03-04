@@ -11,7 +11,7 @@ class Window:
 
         self.master = master
         master.title("US Healthcare Treatment Cost Calculator")
-        master.geometry("700x700")
+        master.geometry('300x400')
         master.resizable(0, 0)
         master.config(background='black')
 
@@ -66,27 +66,16 @@ class Window:
         self.otherButton = Button(master, text='Other ', command=action_with_arg,highlightbackground='black')
         self.otherButton.grid(row=8, column=0, sticky=W)
 
-        # self.print_text.grid(row=0, column=2, sticky=W)
 
-        # self.x1_i = Entry(master, bd='0')
-        # self.text_input.grid(row=1, column=0, padx=3, sticky=W)
-
-        # self.y1_i = Entry(master, bd='0')
-        # self.text_input.grid(row=1, column=0, padx=3, sticky=W)
-
-        # self.draw_line_button = Button(master, text="Draw Line",
-        #                                command=self.draw_line(self.x1_i, self.y1_i, 20, 30, 4),
-        #                                highlightbackground='black')
-        # self.draw_line_button.grid(row=1, column=0, padx=3, sticky=W)
 
         self.close_button = Button(master, text="Close", command=master.quit, highlightbackground='black')
-        self.close_button.grid(row=30, column=2, sticky=S + W)
+        self.close_button.grid(row=11, column=0, sticky=S + W)
 
     def runCalc(self, diagnosis, master):
         # diagnosis = diagnosis
         sp.Popen(["python", "CalcCosts.py", str(diagnosis)])
         print "RESULTS OUTPUTTED TO CALC_OUTPUTS.txt"
-        time.sleep(3)
+        time.sleep(2)
 
         string1=""
         with open("calc_outputs.txt", "r") as fh:
@@ -96,18 +85,30 @@ class Window:
                     string1 += "\nCheapest Cost Found in " + str(results[3]) + ": " + str(results[1])
                     string1 +=  "\nTotal Range in Disparity: " + str(results[1] + " - " + str(results[2]))
                     msg = Message(master, text=string1)
-                    msg.config(bg='lightgreen', font =('times', 14))
-                    msg.grid(row=10, column=2)
-                    msg2= Message(master, text="Box Plot Saved as barChartResults.png in directory")
-                    msg2.config(bg='lightgreen', font=('times', 14))
-                    msg2.grid(row=10, column=20)
-                    time.sleep(4)
-                    # image = Image.open('barChartResults.png')
-                    # display = ImageTk.PhotoImage(image)
+                    msg.config(bg='lightgreen', font =('times', 12))
+                    msg.grid(row=9, column=0)
+                    msg2= Message(master, text="Generating box plot in new window. File also saved to barChartResults.txt")
+                    msg2.config(bg='lightgreen', font=('times', 12))
+                    msg2.grid(row=10, column=0)
 
-                    # labelchart = Label(root, image=display)
-                    # labelchart.grid(rows=0, column=0)
+                    # time.sleep(4)
+                    #image = Image.open('barChartResults.png')
+                    #image = image.resize((300,300), Image.ANTIALIAS)
 
+                    #display = ImageTk.PhotoImage(image)
+                    # image = image.resize((300,300), Image.ANTIALIAS)
+                    # canvas = Canvas(root, width=300, height=300)
+                    # canvas.grid()
+                    # graph=PhotoImage(file='barChartResults.png')
+                    # canvas.create_image(20,20, anchor=)
+                    #canvas.grid(row=10, column=20, sticky=E)
+                    #canvas.create_image(height=300,width=300, image=display, anchor=CENTER)
+                    #canvas.display = display
+                    # canvas.grid(row=10, column=20, sticky=E)
+
+                    # labelchart = Label(root, image=display, )
+                    # canvas.grid()
+                    # sp.open(["open","./barChartResults.png"])
 
 
 root = Tk()

@@ -35,6 +35,7 @@ class Calculator(object):
         plt.title("Cost of "+ str(self.diagnosisCategories[int(self.diagnosis)]+ " in the US."))
         # print len(state)
         plt.bar(conditions, (self.statesCost), width=.4)
+        plt.show()
         plt.savefig("barChartResults.png")
 
         # print count
