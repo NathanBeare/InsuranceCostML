@@ -154,13 +154,16 @@ def plot_averages(state, national, diag):
                  'OR': 36, 'PA': 37, 'RI': 38, 'SC': 39, 'SD': 40, 'TN': 41, 'TX': 42,
                  'UT': 43, 'VT': 44, 'VA': 45, 'WA': 46, 'WV': 47, 'WI': 48, 'WY': 49,
                  'DC': 50}
-    diagnosis = ('Pulmonary Treatments', 'Cardiovascular Treatments', 'Neurological Treatments', 'GI Treatments',
-                 'Renal Treatments', 'Trauma Treatments', 'Orthopedic Treatment', 'Other')
+    diagnosis = ['Pulmonary Treatments', 'Cardiovascular Treatments', 'Neurological Treatments', 'GI Treatments',
+                 'Renal Treatments', 'Trauma Treatments', 'Orthopedic Treatment', 'Other']
+    conditions = []
+    for key in (stateDict.keys()):
+        conditions.append(key)
 
-    conditions = list(stateDict.keys())
-    # print(conditions)
+    # print len(conditions)
     plt.title("Cost of "+ str(diagnosis[diag]+ " in the US."))
-    plt.bar(conditions, state)
+    # print len(state)
+    plt.bar(conditions, (state))
     plt.show()
 
     # print count
@@ -183,7 +186,7 @@ def model (diagnosis, df):
     meanNationalData = np.mean(nationalData)
     print("NATIONAL AVG COST: " +str(meanNationalData))
 
-    for x in range (50):
+    for x in range (51):
         stateData = []
         for y in range(len(df)):
             diag= int(df[y][0])
