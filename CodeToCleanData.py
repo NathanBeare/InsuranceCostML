@@ -161,11 +161,17 @@ def plot_averages(state, national, diag):
         conditions.append(key)
 
     # print len(conditions)
+    plt.figure(1, figsize=(20,20))
+    plt.bar(conditions, state, width=.4)
     plt.title("Cost of "+ str(diagnosis[diag]+ " in the US."))
-    # print len(state)
-    plt.bar(conditions, (state))
     plt.show()
 
+    # plt.subplot(222)
+    # plt.pie(national)
+    # plt.title("National Average Spending by Treatment")
+    # plt.show()
+
+    # print len(state)
     # print count
 def model (diagnosis, df):
     stateDict = {'AL': 0, 'AK': 1, 'AZ': 2, 'AR': 3, 'CA': 4, 'CO': 5, 'CT': 6, 'DE': 7,
@@ -226,7 +232,7 @@ df = np.array(outFinalDataFrame(bigCategories, "CLEANDATA.csv"))
 # df.to_csv("FinalDataSet.csv")
 
 # diagnosis = input("ENTER A DIAGNOSIS:") #num between 0 and 7
-model(6, df)
+model(2, df)
 
 # print (df)
 
