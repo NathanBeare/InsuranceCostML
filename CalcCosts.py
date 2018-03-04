@@ -1,7 +1,7 @@
 from DataCleaning import inputData
 import matplotlib.pyplot as plt
 import numpy as np
-
+import sys
 
 class Calculator(object):
     def __init__(self, data):
@@ -17,7 +17,7 @@ class Calculator(object):
                           'OR': 36, 'PA': 37, 'RI': 38, 'SC': 39, 'SD': 40, 'TN': 41, 'TX': 42,
                           'UT': 43, 'VT': 44, 'VA': 45, 'WA': 46, 'WV': 47, 'WI': 48, 'WY': 49,
                           'DC': 50}
-        self.diagnosis = raw_input("Pick a type of treatment:")
+        self.diagnosis = sys.argv[1]
         self.total_data = data
         # print self.total_data
 
@@ -80,6 +80,7 @@ class Calculator(object):
 
 
 def main():
+    # parser = Argument
     data = inputData("inpatientCharges.csv")
     data.readFile()
     categoryDict = data.biggerCategories()
@@ -90,11 +91,12 @@ def main():
     for a in range(3):
         results[a] = float(results[a])
         results[a] = np.round(results[a], decimals=2)
-    print "National cost for getting " + str(calc.diagnosisCategories[int(calc.diagnosis)]) + "in the US: " + str(results[0])
-    print "Cheapest cost for getting " + str(calc.diagnosisCategories[int(calc.diagnosis)]) + "in the US: " + str(results[1])
-    print "This is in " + str(results[3])
-    print "Total Disparity for this treatment: " + str(results[1]) + "-" + str(results[2])
-    print "now plotting total average for that treatment in all 50 states"
+    # r "National cost for getting " + str(calc.diagnosisCategories[int(calc.diagnosis)]) + "in the US: " + str(results[0])
+    # print "Cheapest cost for getting " + str(calc.diagnosisCategories[int(calc.diagnosis)]) + "in the US: " + str(results[1])
+    # print "This is in " + str(results[3])
+    # print "Total Disparity for this treatment: " + str(results[1]) + "-" + str(results[2])
+    # print "now plotting total average for that treatment in all 50 states"
+    return results
     calc.plot_averages()
 
     # print data.model(7)
